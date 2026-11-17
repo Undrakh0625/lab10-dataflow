@@ -65,9 +65,9 @@ CFG-ийн товчлол: 13-д `x`, `y` параметрүүд тодорхо�
 
 | Хувьсагч | Def мөр | Use мөр | c-use / p-use | Def-clear зам | Тестийн ID |
 |---|---:|---:|---|---|---|
-| attendance | 31 | 32 | p-use | 31→32 | B-AD-01 |
+| attendance | 31 | 32 | p-use | 31→32 | B-AD-01, B-INVALID-01 |
 | attendance | 31 | 38 | p-use | 31→32(false)→35→38 | B-AD-01, B-DU-03 |
-| threshold | 31 | 32 | p-use | 31→32 | B-INVALID-02 |
+| threshold | 31 | 32 | p-use | 31→32 (attendance null биш үед) | B-INVALID-02, B-AD-01 |
 | threshold | 31 | 50 | p-use | 31→32(false)→35→38→49→50 | B-AD-01, B-DU-02/03 |
 | present | 35 | 40 | c-use | 35→38→40 | B-AD-01 |
 | present | 35 | 50 | p-use | 35→38(false)→49→50 | B-DU-02/03 |
@@ -102,3 +102,31 @@ CFG-ийн товчлол: 13-д `x`, `y` параметрүүд тодорхо�
 `B-AD-01` нь non-exceptional нөхцөлөөр `present`, `streak`, `best`, `a`, `score` хувьсагчдын бүх executable definition-ийг дор хаяж нэг use-д хүргэнэ. Нэг тестээр хангах боломжтой тул энэ шатны bonus тестийн хамгийн бага тоо **1**. `mvn clean verify -Dtest='GcdTest,BonusTest#allDefinitionsAreReachedByOneInput'` гаралт болон JaCoCo CSV-г `results/mvn-verify-alldefs.txt`, `results/jacoco-alldefs.csv`-д хадгална.
 
 Энэ шатны run нь GCD-ийн 2 тест болон bonus-ийн `B-AD-01` гэсэн 1 тест ажиллуулж, **3 тест, 0 failure/error** гаргасан. JaCoCo class row: **12/16 branches**, 22/24 lines; ALL-DEFS нь branch coverage-тэй адил шалгуур биш тул ALL-DU-PAIRS шатанд нэмэлт замууд орно.
+
+### B4. ALL-DU-PAIRS шат
+
+`BonusTest` одоо `B-AD-01` дээр нэмээд DU хүснэгтийн бүх замд хүрэх 5 тест агуулна: `B-DU-02` score-ийн def-to-use хоёр зам болон fragmented streak; `B-DU-03` хоосон массив/score буцах зам; `B-DU-04` threshold хангаж байгаа ч streak < 5 зам; `B-INVALID-01/02` null attendance болон сөрөг threshold. GCD-ийн 2 тесттэй нийлээд бүх suite **8 тест** ажиллуулна. `mvn clean verify`-ийн JaCoCo үр дүн class row дээр **BRANCH_MISSED=0, BRANCH_COVERED=16** болохыг эцсийн CSV-ээр батална.
+
+## C. Fault seeding үр дүн
+
+Мутаци бүрийг тусад нь оруулж `mvn test` ажиллуулаад `git restore`-оор starter эх кодыг шууд буцаасан. Эцсийн `DataFlowTargets.java` өөрчлөгдөөгүй.
+
+| Fault | Үр дүн | Гаралтын файл |
+|---|---|---|
+| M1 — `streak = streak + 1` мөрийг хасах | **Баригдсан:** all-defs болон streak-dependent тестүүд унана; `BUILD FAILURE`, exit 1 | `results/mvn-test-M1.txt` |
+| M2 — `best = streak` → `best = present` | Эхний тестийн багцад амьд үлдсэн (`BUILD SUCCESS`); `B-DU-04`-ийг `[1,0,1,1,1,1,0]`, threshold 5 гэж сонгож нэмсний дараа **баригдсан**, нэг failure, exit 1 | `results/mvn-test-M2.txt`, `results/mvn-test-M2-kill.txt` |
+| M3 — ашиглагдахгүй `int total = present + best;` тодорхойлолт нэмэх | Unit тестүүд **8/8 PASS**, exit 0. PMD `UnusedLocalVariable` дүрэм `total`-ийг 49-р мөрөнд илрүүлж `pmd:check`-ийг нэг violation-оор унагасан | `results/mvn-test-M3.txt`, `results/pmd-M3.txt` |
+
+Final restore-ийн дараа `mvn clean verify` ногоон болсон; `results/mvn-verify-final.txt`, `results/jacoco-final.csv` нь эх код сэргээсэн эцсийн төлөвийг харуулна.
+
+## Дүгнэлт
+
+1. Def/use хүснэгт нь хувьсагч хаана утга авч, хаана predicate эсвэл тооцоонд хэрэглэгдэж байгааг мөрөөр нь холбосон.
+2. GCD-ийн хоёр тест loop body хэрэгжих болон хоосон loop exit замын бүх DU хосыг хамарсан.
+3. Bonus-ийн нэг `B-AD-01` тест executable definition бүрд хүрсэн тул all-defs-ийн хамгийн бага тоо нэг болов.
+4. Нэмэлт bonus тестүүд score-ийн c-use болон predicate use-ийн өөр өөр def-clear замыг ялгаж шалгасан.
+5. Мөр 46 дээрх `streak=0` нь өмнөх streak def-үүдийг kill хийж, дараагийн streak тооцоог тасалдаг.
+6. Бүрэн suite 8 тестээр JaCoCo-ийн 16 branch бүгдийг хамарсан.
+7. M1 missing update алдааг streak-ийн хүлээгдэх оноо өөрчлөгдсөнөөр тестүүд барьсан.
+8. M2 эхэндээ амьд үлдсэн тул төлөөлөх input-ийг шинэчилсний дараа mutation-ийн нөлөөг онооны босгон дээр ялгаж барьсан.
+9. M3-ийн dead definition нь runtime behavior-д нөлөөлөөгүй ч PMD-ийн unused-local-variable шинжилгээгээр илэрсэн.
