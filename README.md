@@ -8,6 +8,7 @@
 - `mvn -version`: `Apache Maven 3.10.0`; Maven runtime Java `27.0.1.0.3`
 - Starter Java compile target: `17`
 - JUnit Jupiter `5.10.2`; JaCoCo `0.8.12`.
+- PMD `7.14.0`; M3 static analysis-г Java `25.0.2` runtime дээр ажиллуулсан.
 
 ## Starter
 
@@ -115,7 +116,15 @@ CFG-ийн товчлол: 13-д `x`, `y` параметрүүд тодорхо�
 |---|---|---|
 | M1 — `streak = streak + 1` мөрийг хасах | **Баригдсан:** all-defs болон streak-dependent тестүүд унана; `BUILD FAILURE`, exit 1 | `results/mvn-test-M1.txt` |
 | M2 — `best = streak` → `best = present` | Эхний тестийн багцад амьд үлдсэн (`BUILD SUCCESS`); `B-DU-04`-ийг `[1,0,1,1,1,1,0]`, threshold 5 гэж сонгож нэмсний дараа **баригдсан**, нэг failure, exit 1 | `results/mvn-test-M2.txt`, `results/mvn-test-M2-kill.txt` |
-| M3 — ашиглагдахгүй `int total = present + best;` тодорхойлолт нэмэх | Unit тестүүд **8/8 PASS**, exit 0. PMD `UnusedLocalVariable` дүрэм `total`-ийг 49-р мөрөнд илрүүлж `pmd:check`-ийг нэг violation-оор унагасан | `results/mvn-test-M3.txt`, `results/pmd-M3.txt` |
+| M3 — ашиглагдахгүй `int total = present + best;` тодорхойлолт нэмэх | Unit тестүүд **8/8 PASS**, exit 0. PMD-ийн `UnusedLocalVariable` дүрэм `total`-ийг 49-р мөрөнд илрүүлж `pmd:check`-ийг нэг violation-оор унагасан | `results/mvn-test-M3.txt`, `results/pmd-M3.txt`, `results/pmd-M3.xml` |
+
+PMD-г дахин шалгахдаа fault түр идэвхтэй байхад дараах командыг ажиллуулна:
+
+```sh
+JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home" \
+  PATH="/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home/bin:$PATH" \
+  mvn pmd:check
+```
 
 Final restore-ийн дараа `mvn clean verify` ногоон болсон; `results/mvn-verify-final.txt`, `results/jacoco-final.csv` нь эх код сэргээсэн эцсийн төлөвийг харуулна.
 

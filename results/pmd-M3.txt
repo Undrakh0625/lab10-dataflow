@@ -1,0 +1,87 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24524 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------------< mn.edu.must.sqat:lab10-dataflow >-------------------
+[INFO] Building lab10-dataflow 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- pmd:3.27.0:pmd (default-cli) @ lab10-dataflow ---
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Unable to locate Source XRef to link to -- DISABLED
+[INFO] PMD version: 7.14.0
+[INFO] Rendering content with org.apache.maven.skins:maven-fluido-skin:jar:2.0.0-M9 skin
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.967 s
+[INFO] Finished at: 2026-11-17T20:30:25+08:00
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 24524 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------------< mn.edu.must.sqat:lab10-dataflow >-------------------
+[INFO] Building lab10-dataflow 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> pmd:3.27.0:check (default-cli) > :pmd @ lab10-dataflow >>>
+[INFO] 
+[INFO] --- pmd:3.27.0:pmd (pmd) @ lab10-dataflow ---
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Unable to locate Source XRef to link to -- DISABLED
+[INFO] PMD version: 7.14.0
+[INFO] Rendering content with org.apache.maven.skins:maven-fluido-skin:jar:2.0.0-M9 skin
+[INFO] 
+[INFO] <<< pmd:3.27.0:check (default-cli) < :pmd @ lab10-dataflow <<<
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.27.0:check (default-cli) @ lab10-dataflow ---
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.626 s
+[INFO] Finished at: 2026-11-17T20:30:53+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-pmd-plugin:3.27.0:check (default-cli) on project lab10-dataflow: PMD 7.14.0 has found 1 violation. For more details see: /Users/undrakherdenetsogt/Documents/Codex/2026-11-11/lab10-dataflow/target/pmd.xml -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+exit=1
+[INFO] Scanning for projects...
+[INFO] Loaded 24524 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------------< mn.edu.must.sqat:lab10-dataflow >-------------------
+[INFO] Building lab10-dataflow 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> pmd:3.27.0:check (default-cli) > :pmd @ lab10-dataflow >>>
+[INFO] 
+[INFO] --- pmd:3.27.0:pmd (pmd) @ lab10-dataflow ---
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[WARNING] Unable to locate Source XRef to link to -- DISABLED
+[INFO] PMD version: 7.14.0
+[INFO] Rendering content with org.apache.maven.skins:maven-fluido-skin:jar:2.0.0-M9 skin
+[INFO] 
+[INFO] <<< pmd:3.27.0:check (default-cli) < :pmd @ lab10-dataflow <<<
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.27.0:check (default-cli) @ lab10-dataflow ---
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.976 s
+[INFO] Finished at: 2026-11-17T20:38:01+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-pmd-plugin:3.27.0:check (default-cli) on project lab10-dataflow: PMD 7.14.0 has found 1 violation. For more details see: /Users/undrakherdenetsogt/Documents/Codex/2026-11-11/lab10-dataflow/target/pmd.xml -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+pmd-check exit=1
