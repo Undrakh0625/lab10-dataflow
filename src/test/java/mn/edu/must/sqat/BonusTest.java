@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 @DisplayName("bonus-ийн өгөгдлийн урсгалын хосууд")
 class BonusTest {
     @Test
-    @DisplayName("B-AD-01 мөр 35,36,37,38,40,41,43,46,49,51,54 defs бүгдийг тодорхойлно")
-    void allDefinitionsAreReachedByOneInput() {
+    @DisplayName("B-AD-01 score@51 тодорхойлолтыг үүсгэж хэрэглэнэ; score@49 энд use-д хүрэхгүй")
+    void positiveAttendanceReachesScoreDefinitionAt51() {
         // Arrange
         int[] attendance = {1, 0, 1, 1, 1, 1, 1};
         int threshold = 6;
@@ -32,7 +32,7 @@ class BonusTest {
     }
 
     @Test
-    @DisplayName("B-DU-03 мөр 49→56 score-ийн эхний def-ээс return use")
+    @DisplayName("B-AD-02 / B-DU-03 хоосон ирцээр score@49→56 def-clear use")
     void scoreInitializationFlowsDirectlyToReturn() {
         // Arrange
         int[] attendance = {};
